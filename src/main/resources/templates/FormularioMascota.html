@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/layout :: layout('Formulario de Mascota', ~{::div})}">
+<body>
+<div>
+  <h2 th:text="${mascota.id == null ? 'Nueva Mascota' : 'Editar Mascota'}"></h2>
+
+  <form th:action="@{/mascotas/guardar}" th:object="${mascota}" method="post">
+    <input type="hidden" th:field="*{id}">
+
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="especie" class="form-label">Especie</label>
+      <input type="text" class="form-control" id="especie" th:field="*{especie}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="raza" class="form-label">Raza</label>
+      <input type="text" class="form-control" id="raza" th:field="*{raza}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+      <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="propietario" class="form-label">Propietario</label>
+      <select class="form-control" id="propietario" th:field="*{propietario}" required>
+        <option value="">Seleccione un propietario</option>
+        <option th:each="prop : ${propietarios}"
+                th:value="${prop.id}"
+                th:text="${prop.nombre}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-save"></i> Guardar
+    </button>
+    <a href="/mascotas" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Cancelar
+    </a>
+  </form>
+</div>
+</body>
+</html>
